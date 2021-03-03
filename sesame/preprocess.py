@@ -28,7 +28,7 @@ import tqdm
 import xml.etree.ElementTree as et
 from optparse import OptionParser
 
-from .globalconfig import (VERSION, TRAIN_EXEMPLAR, TRAIN_FTE, DEV_CONLL, TEST_CONLL,
+from .globalconfig import (VERSION, TRAIN_EXEMPLAR, TRAIN_FTE, DEV_CONLL, TEST_CONLL, DATA_DIR,
                           FULLTEXT_DIR, PARSER_DATA_DIR, TEST_FILES, DEV_FILES, LU_DIR, EMBEDDINGS_FILE)
 from .xml_annotations import FrameAnnotation, SentenceAnnotation
 
