@@ -337,6 +337,7 @@ if options.mode in ["train", "refresh"]:
                 try:
                     trainer.update()
                 except:
+                    model.reset_gradient
                     sys.stderr.write("Found inf or NaN, skipping this update.\n")
 
             if idx % DEV_EVAL_EPOCH == 0:
