@@ -24,7 +24,7 @@ import time
 import tqdm
 from optparse import OptionParser
 
-from dynet import Model, LSTMBuilder, SimpleSGDTrainer, lookup, concatenate, rectify, renew_cg, dropout, log_softmax, esum, pick, AmsgradTrainer
+from dynet import Model, LSTMBuilder, SimpleSGDTrainer, lookup, concatenate, rectify, renew_cg, dropout, log_softmax, esum, pick, AdagradTrainer
 
 from .conll09 import lock_dicts, post_train_lock_dicts, VOCDICT, POSDICT, FRAMEDICT, LUDICT, LUPOSDICT
 from .dataio import get_wvec_map, read_conll, read_related_lus
@@ -44,6 +44,8 @@ optpr.add_option("--exemplar", action="store_true", default=False)
 optpr.add_option("--raw_input", type="str", metavar="FILE")
 optpr.add_option("--config", type="str", metavar="FILE")
 (options, args) = optpr.parse_args()
+
+renew_cg(immediate_compute = True, check_validity = True)
 
 model_dir = "logs/{}/".format(options.model_name)
 model_file_name = "{}best-frameid-{}-model".format(model_dir, VERSION)
@@ -181,12 +183,12 @@ print_data_status(FRAMEDICT, "Frames")
 sys.stderr.write("\n_____________________\n\n")
 
 model = Model()
-# trainer = SimpleSGDTrainer(model)
+# trainer = SimpleSGDTrainer(model)     This is the original setting.
 # trainer = AdamTrainer(model, 0.0001, 0.01, 0.9999, 1e-8)
-# trainer = AdagradTrainer(model)
+trainer = AdagradTrainer(model)     # This went by far the longest without erroring out.
 # trainer = AdadeltaTrainer(model)
 # trainer = RMSPropTrainer(model, 0.01)
-trainer = AmsgradTrainer(model)
+# trainer = AmsgradTrainer(model)
 
 v_x = model.add_lookup_parameters((VOCDICT.size(), TOKDIM))
 p_x = model.add_lookup_parameters((POSDICT.size(), POSDIM))
