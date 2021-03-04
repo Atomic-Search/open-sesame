@@ -181,8 +181,8 @@ print_data_status(FRAMEDICT, "Frames")
 sys.stderr.write("\n_____________________\n\n")
 
 model = Model()
-#trainer = SimpleSGDTrainer(model)
-trainer = AdamTrainer(model, 0.0001, 0.01, 0.9999, 1e-8)
+trainer = SimpleSGDTrainer(model)
+# trainer = AdamTrainer(model, 0.0001, 0.01, 0.9999, 1e-8)
 
 v_x = model.add_lookup_parameters((VOCDICT.size(), TOKDIM))
 p_x = model.add_lookup_parameters((POSDICT.size(), POSDIM))
@@ -226,7 +226,7 @@ def identify_frames(builders, tokens, postags, lexunit, targetpositions, goldfra
     for i in range(sentlen + 1):
         if tokens[i] in pretrained_embeddings_map:
             # If update set to False, prevents pretrained embeddings from being updated.
-            emb_without_backprop = lookup(e_x, tokens[i], update=True)
+            emb_without_backprop = lookup(e_x, tokens[i], update=False)
             features_at_i = concatenate([emb_x[i], pos_x[i], emb_without_backprop])
         else:
             features_at_i = concatenate([emb_x[i], pos_x[i], u_x])
