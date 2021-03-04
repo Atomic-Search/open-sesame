@@ -334,7 +334,10 @@ if options.mode in ["train", "refresh"]:
             if trexloss is not None:
                 loss += trexloss.scalar_value()
                 trexloss.backward()
-                trainer.update()
+                try:
+                    trainer.update()
+                except:
+                    sys.stderr.write("Found inf or NaN, skipping this update.\n")
 
             if idx % DEV_EVAL_EPOCH == 0:
                 corpus_result = [0.0, 0.0, 0.0]
