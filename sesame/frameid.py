@@ -183,7 +183,7 @@ sys.stderr.write("\n_____________________\n\n")
 model = Model()
 # trainer = SimpleSGDTrainer(model)
 # trainer = AdamTrainer(model, 0.0001, 0.01, 0.9999, 1e-8)
-trainer = AdagradTrainer(model)
+trainer = AdagradTrainer(model, 0.01)
 
 v_x = model.add_lookup_parameters((VOCDICT.size(), TOKDIM))
 p_x = model.add_lookup_parameters((POSDICT.size(), POSDIM))
