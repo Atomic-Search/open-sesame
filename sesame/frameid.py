@@ -221,7 +221,8 @@ w_f = model.add_parameters((FRAMEDICT.size(), HIDDENDIM))
 b_f = model.add_parameters((FRAMEDICT.size(), 1))
 
 def identify_frames(builders, tokens, postags, lexunit, targetpositions, goldframe=None):
-    renew_cg()
+    # renew_cg()
+    renew_cg(immediate_compute = True, check_validity = True)
     trainmode = (goldframe is not None)
 
     sentlen = len(tokens) - 1
