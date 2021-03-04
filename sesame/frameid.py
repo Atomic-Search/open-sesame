@@ -24,7 +24,7 @@ import time
 import tqdm
 from optparse import OptionParser
 
-from dynet import Model, LSTMBuilder, SimpleSGDTrainer, lookup, concatenate, rectify, renew_cg, dropout, log_softmax, esum, pick, AdagradTrainer
+from dynet import Model, LSTMBuilder, SimpleSGDTrainer, lookup, concatenate, rectify, renew_cg, dropout, log_softmax, esum, pick, AdadeltaTrainer
 
 from .conll09 import lock_dicts, post_train_lock_dicts, VOCDICT, POSDICT, FRAMEDICT, LUDICT, LUPOSDICT
 from .dataio import get_wvec_map, read_conll, read_related_lus
@@ -183,7 +183,8 @@ sys.stderr.write("\n_____________________\n\n")
 model = Model()
 # trainer = SimpleSGDTrainer(model)
 # trainer = AdamTrainer(model, 0.0001, 0.01, 0.9999, 1e-8)
-trainer = AdagradTrainer(model, 0.01)
+# trainer = AdagradTrainer(model)
+trainer = AdadeltaTrainer(model)
 
 v_x = model.add_lookup_parameters((VOCDICT.size(), TOKDIM))
 p_x = model.add_lookup_parameters((POSDICT.size(), POSDIM))
