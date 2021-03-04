@@ -181,7 +181,7 @@ print_data_status(FRAMEDICT, "Frames")
 sys.stderr.write("\n_____________________\n\n")
 
 model = Model()
-trainer = SimpleSGDTrainer(model)
+trainer = SimpleSGDTrainer(model, 0.01)
 # trainer = AdamTrainer(model, 0.0001, 0.01, 0.9999, 1e-8)
 
 v_x = model.add_lookup_parameters((VOCDICT.size(), TOKDIM))
@@ -232,7 +232,7 @@ def identify_frames(builders, tokens, postags, lexunit, targetpositions, goldfra
             features_at_i = concatenate([emb_x[i], pos_x[i], u_x])
         emb2_xi.append(w_e * features_at_i + b_e)
 
-    emb2_x = [rectify(emb2_xi[i]) for i in range(sentlen+1)]
+    emb2_x = [rectify(emb2_xi[i]) for i in range(sentlen+1)] #Diff
 
     # initializing the two LSTMs
     if USE_DROPOUT and trainmode:
