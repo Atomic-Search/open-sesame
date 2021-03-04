@@ -185,7 +185,7 @@ model = Model()
 # trainer = AdamTrainer(model, 0.0001, 0.01, 0.9999, 1e-8)
 # trainer = AdagradTrainer(model)
 # trainer = AdadeltaTrainer(model)
-trainer = RMSPropTrainer(model)
+trainer = RMSPropTrainer(model, 0.01)
 
 v_x = model.add_lookup_parameters((VOCDICT.size(), TOKDIM))
 p_x = model.add_lookup_parameters((POSDICT.size(), POSDIM))
