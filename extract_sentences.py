@@ -55,7 +55,7 @@ def main(args):
             for span in doc.sents:
                 sentence = span.text
                 sentence.strip()
-                if sentence:
+                if len(sentence) > 10:
                     print(sentence, file=sentf)
 
 
