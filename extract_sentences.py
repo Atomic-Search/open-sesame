@@ -54,7 +54,9 @@ def main(args):
             doc = nlp(body)
             for span in doc.sents:
                 sentence = span.text
-                print(sentence, file=sentf)
+                sentence.strip()
+                if sentence:
+                    print(sentence, file=sentf)
 
 
 if __name__ == "__main__":
