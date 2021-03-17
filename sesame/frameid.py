@@ -24,6 +24,9 @@ import time
 import tqdm
 from optparse import OptionParser
 
+import dynet_config
+dynet_config.set_gpu()
+
 from dynet import Model, LSTMBuilder, SimpleSGDTrainer, lookup, concatenate, rectify, renew_cg, dropout, log_softmax, esum, pick
 
 from .conll09 import lock_dicts, post_train_lock_dicts, VOCDICT, POSDICT, FRAMEDICT, LUDICT, LUPOSDICT
